@@ -3,6 +3,9 @@ import Navbar from "../components/Navbar";
 import axios from "axios";
 import AddUserModel from "../components/AddUserModel";
 import ConformDelete from "../components/ConformDelete";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Home() {
   const [isModelOpen, setModelOpen] = useState(false);
@@ -12,6 +15,15 @@ function Home() {
   const [currentUser, setCurrentUser] = useState(null);
   const [userToDelete, setUserToDelete] = useState(null);
   const [query, setQuery] = useState("");
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (user.role === "user") {
+      navigate("/");
+      toast.error("Access denied");
+    }
+  }, [user, navigate]);
 
   useEffect(() => {
     fetchUser();
@@ -54,10 +66,12 @@ function Home() {
       if (response.data.success) {
         closeModel();
         fetchUser();
+        toast.success("User added successfully");
         console.log("user created");
       }
     } catch (error) {
       console.log("error", error);
+      toast.error(error);
     }
   };
 
@@ -83,10 +97,12 @@ function Home() {
       if (response.data.success) {
         closeModel();
         fetchUser();
+        toast.success("User updated successfully");
         console.log("user updated");
       }
     } catch (error) {
       console.log("error", error);
+      toast.error(error);
     }
   };
 
@@ -113,10 +129,12 @@ function Home() {
       );
       if (response.data.success) {
         fetchUser();
+        toast.success("User deleted successfully");
         console.log("user deleted");
       }
     } catch (error) {
       console.log("error", error);
+      toast.error(error);
     }
   };
 

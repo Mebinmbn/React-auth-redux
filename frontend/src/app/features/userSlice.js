@@ -22,6 +22,7 @@ const userSlice = createSlice({
 
       localStorage.removeItem("user");
       localStorage.removeItem("token");
+      localStorage.removeItem("role");
     },
   },
 });

@@ -14,7 +14,7 @@ function Login() {
 
   useEffect(() => {
     if (user && token) {
-      navigate("/");
+      navigate("/admin");
     }
   }, [user, token, navigate]);
 
@@ -64,7 +64,7 @@ function Login() {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="border shadow p-6 w-80 bg-white">
-        <h2 className="text-2xl font-bold mb-4">Login</h2>
+        <h2 className="text-2xl font-bold mb-4 text-center">Admin Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="email" className="block text-gray-700">
@@ -98,12 +98,6 @@ function Login() {
               Login
             </button>
           </div>
-          <p>
-            New to us?{" "}
-            <Link className="text-teal-500" to="/register">
-              Create Account
-            </Link>
-          </p>
         </form>
       </div>
     </div>
